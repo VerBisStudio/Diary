@@ -54,5 +54,16 @@ GO
 ALTER TABLE [UserTask] CHECK CONSTRAINT [UserTask_fk1]
 GO
 
+IF OBJECT_ID('GetLoginId') IS NOT NULL
+	DROP PROCEDURE GetLoginId
+GO
+CREATE PROCEDURE GetLoginId
+	@Login nvarchar(16),
+	@Password nvarchar (16)
+	AS
+	DECLARE @idUser int
 
-
+	SET @idUser = (SELECT TOP(1) [User].idUser FROM [User]
+	WHERE [User].Login = @Login AND [User].Password = @Password)
+	RETURN ISNULL(@idUser, -1)
+GO

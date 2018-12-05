@@ -55,3 +55,16 @@ ALTER TABLE [UserTask] CHECK CONSTRAINT [UserTask_fk1]
 GO
 
 
+CREATE PROCEDURE AddUser
+@IdUser INT,
+@Login NVARCHAR(50),
+@Password NVARCHAR(50),
+@Mail NVARCHAR(50),
+@Birthday Date
+
+AS
+BEGIN
+INSERT [User]
+VALUES (@IdUser, @Login, @Password, @Mail, @Birthday)
+END
+GO

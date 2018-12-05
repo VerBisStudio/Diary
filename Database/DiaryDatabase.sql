@@ -56,7 +56,6 @@ GO
 
 
 CREATE PROCEDURE AddUser
-@IdUser INT,
 @Login NVARCHAR(50),
 @Password NVARCHAR(50),
 @Mail NVARCHAR(50),
@@ -65,6 +64,6 @@ CREATE PROCEDURE AddUser
 AS
 BEGIN
 INSERT [User]
-VALUES (@IdUser, @Login, @Password, @Mail, @Birthday)
+VALUES (@Login, @Password, @Mail, @Birthday)
 END
 GO

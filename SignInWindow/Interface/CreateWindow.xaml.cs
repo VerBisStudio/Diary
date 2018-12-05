@@ -24,7 +24,7 @@ namespace SignInWindow
             InitializeComponent();
         }
 
-        private void registerButt_Click(object sender, RoutedEventArgs e)
+        private void BT_Create_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Greate!! Your check in.");
         }

@@ -10,25 +10,25 @@
 
 
         <WrapPanel Orientation="Vertical">
-            <Label Content="Login account:" FontSize="24" Margin="10 5 0 0"/>
+            <Label Content="Log in account:" FontSize="24" Margin="10 5 0 0"/>
             <Label Content="User name:" FontSize="15"
                    Margin="30 0 0 0"/>
-            <TextBox Name="userNameTextBox" Height="25" Width="160"
+            <TextBox Name="TB_UserName" Height="25" Width="160"
                      Margin="70 0 0 0"/>
         </WrapPanel>
 
         <WrapPanel Orientation="Vertical">
             <Label Content="Password:" FontSize="15"
                    Margin="30 95 0 0"/>
-            <PasswordBox Name="passwordBox" Height="25" Width="160"
+            <PasswordBox Name="PB_Password" Height="25" Width="160"
                          Margin="70 0 0 0"/>
         </WrapPanel>
 
         <WrapPanel Orientation="Horizontal">
-            <Button Name="checkInButt" Width="80" Height="30"
-                    Margin="50 165 0 0" Content="Check in" Click="checkInButt_Click"/>
-            <Button Name="signInButt" Width="80" Height="30"
-                    Margin="40 165 0 0" Content="Sign in" Click="signInButt_Click"/>
+            <Button Name="BT_Login" Width="80" Height="30"
+                    Margin="50 165 0 0" Content="Login" Click="BT_Login_Click"/>
+            <Button Name="BT_SignIn" Width="80" Height="30"
+                    Margin="40 165 0 0" Content="Sign in" Click="BT_SignIn_Click"/>
         </WrapPanel>
 
     </Grid>

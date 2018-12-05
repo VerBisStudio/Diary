@@ -53,6 +53,31 @@ GO
 ALTER TABLE [UserTask] CHECK CONSTRAINT [UserTask_fk1]
 GO
 
+INSERT INTO [User] ([Login], [Password], Mail, Birthday)
+VALUES ('test', 'test', 'mail', '2018-11-11') 
+INSERT INTO [User] ([Login], [Password], Mail, Birthday)
+VALUES ('test1', 'test', 'mail1', '2018-11-11') 
+INSERT INTO [User] ([Login], [Password], Mail, Birthday)
+VALUES ('test2', 'test', 'mail2', '2018-11-11') 
+GO
+
+INSERT INTO Task (NameTask, IsComplete, DateTask)
+VALUES ('test', 0, '2018-11-11') 
+INSERT INTO Task (NameTask, IsComplete, DateTask)
+VALUES ('test', 0, '2018-11-11')
+INSERT INTO Task (NameTask, IsComplete, DateTask)
+VALUES ('test', 0, '2018-11-11') 
+GO
+
+INSERT INTO UserTask(IdUser, IdTask)
+VALUES (1,1) 
+INSERT INTO UserTask(IdUser, IdTask)
+VALUES (2,5) 
+INSERT INTO UserTask(IdUser, IdTask)
+VALUES (3,6) 
+GO
+
+
 IF OBJECT_ID('GetLoginId') IS NOT NULL
 	DROP PROCEDURE GetLoginId
 GO
@@ -94,4 +119,6 @@ CREATE PROCEDURE AddTask
 	INSERT INTO [Task] OUTPUT INSERTED.idTask INTO @idTask VALUES (@NameTask, 0, GETDATE())
 	INSERT INTO [UserTask] VALUES(@idUser, (SELECT TOP(1) * FROM @idTask))
 GO
+
+CREATE PROCEDURE DelTask
 

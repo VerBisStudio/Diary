@@ -1,0 +1,35 @@
+﻿<Window x:Class="SignInWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SignInWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="270" Width="300">
+    <Grid>
+
+
+        <WrapPanel Orientation="Vertical">
+            <Label Content="Log in account:" FontSize="24" Margin="10 5 0 0"/>
+            <Label Content="User name:" FontSize="15"
+                   Margin="30 0 0 0"/>
+            <TextBox Name="TB_UserName" Height="25" Width="160"
+                     Margin="70 0 0 0"/>
+        </WrapPanel>
+
+        <WrapPanel Orientation="Vertical">
+            <Label Content="Password:" FontSize="15"
+                   Margin="30 95 0 0"/>
+            <PasswordBox Name="PB_Password" Height="25" Width="160"
+                         Margin="70 0 0 0"/>
+        </WrapPanel>
+
+        <WrapPanel Orientation="Horizontal">
+            <Button Name="BT_Login" Width="80" Height="30"
+                    Margin="50 165 0 0" Content="Login" Click="BT_Login_Click"/>
+            <Button Name="BT_SignIn" Width="80" Height="30"
+                    Margin="40 165 0 0" Content="Sign in" Click="BT_SignIn_Click"/>
+        </WrapPanel>
+
+    </Grid>
+</Window>

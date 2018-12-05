@@ -10,7 +10,7 @@ USE [Diary]
 GO
 
 CREATE TABLE [User] (
-	[idUser] BIGINT NOT NULL IDENTITY(1,1),
+	[idUser] INT NOT NULL IDENTITY(1,1),
 	[Login] NVARCHAR(16) NOT NULL UNIQUE,
 	[Password] NVARCHAR(16) NOT NULL,
 	[Mail] NVARCHAR(31) NOT NULL UNIQUE,
@@ -24,7 +24,7 @@ CREATE TABLE [User] (
 GO
 
 CREATE TABLE [Task] (
-	[idTask] BIGINT NOT NULL IDENTITY(1,1),
+	[idTask] INT NOT NULL IDENTITY(1,1),
 	[NameTask] NVARCHAR(127) NOT NULL,
 	[IsComplete] BIT NULL DEFAULT 0,
 	[DateTask] DATE NOT NULL,
@@ -37,8 +37,8 @@ CREATE TABLE [Task] (
 GO
 
 CREATE TABLE [UserTask] (
-	[fk_idUser] BIGINT NOT NULL,
-	[fk_idTask] BIGINT NOT NULL
+	[fk_idUser] INT NOT NULL,
+	[fk_idTask] INT NOT NULL
 )
 GO
 
@@ -58,12 +58,26 @@ IF OBJECT_ID('GetLoginId') IS NOT NULL
 	DROP PROCEDURE GetLoginId
 GO
 CREATE PROCEDURE GetLoginId
-	@Login nvarchar(16),
-	@Password nvarchar (16)
+	@Login NVARCHAR(16),
+	@Password NVARCHAR(16)
 	AS
-	DECLARE @idUser int
+	DECLARE @idUser INT
 
 	SET @idUser = (SELECT TOP(1) [User].idUser FROM [User]
 	WHERE [User].Login = @Login AND [User].Password = @Password)
 	RETURN ISNULL(@idUser, -1)
+GO
+
+IF OBJECT_ID('AddTask') IS NOT NULL
+	DROP PROCEDURE AddTask
+GO
+CREATE PROCEDURE AddTask
+	@idUser INT,
+	@NameTask NVARCHAR(127)
+	AS
+	
+	DECLARE @idTask TABLE(id INT)
+
+	INSERT INTO [Task] OUTPUT INSERTED.idTask INTO @idTask VALUES (@NameTask, 0, GETDATE())
+	INSERT INTO [UserTask] VALUES(@idUser, (SELECT TOP(1) * FROM @idTask))
 GO

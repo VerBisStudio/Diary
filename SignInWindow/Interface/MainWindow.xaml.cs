@@ -24,19 +24,21 @@ namespace SignInWindow
         {
             InitializeComponent();
         }
-        private void checkInButt_Click(object sender, RoutedEventArgs e)
+        private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                CheckInWindow check = new CheckInWindow();
-                check.Show();
+                CheckInWindow check = new CheckInWindow();               
+                check.ShowDialog();
+
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void signInButt_Click(object sender, RoutedEventArgs e)
+        private void BT_SignIn_Click(object sender, RoutedEventArgs e)
         {
-            if (userNameTextBox.Text.Length > 0)
+            if (TB_UserName.Text.Length > 0)
             {
                 MessageBox.Show("ok");
             }

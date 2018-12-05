@@ -19,20 +19,19 @@ CREATE TABLE [User] (
   (
   [IdUser] ASC
   ) WITH (IGNORE_DUP_KEY = OFF)
-
 )
 GO
 
 CREATE TABLE [Task] (
+
 	IdTask INT NOT NULL IDENTITY(1,1),
 	NameTask NVARCHAR(127) NOT NULL,
 	IsComplete BIT NULL DEFAULT 0,
 	DateTask DATE NOT NULL,
   CONSTRAINT [PK_TASK] PRIMARY KEY CLUSTERED
   (
-  [IdTask] ASC
+  IdTask ASC
   ) WITH (IGNORE_DUP_KEY = OFF)
-
 )
 GO
 
@@ -54,6 +53,19 @@ GO
 ALTER TABLE [UserTask] CHECK CONSTRAINT [UserTask_fk1]
 GO
 
+IF OBJECT_ID('GetLoginId') IS NOT NULL
+	DROP PROCEDURE GetLoginId
+GO
+CREATE PROCEDURE GetLoginId
+	@Login NVARCHAR(16),
+	@Password NVARCHAR(16)
+	AS
+	DECLARE @idUser INT
+
+	SET @idUser = (SELECT TOP(1) [User].idUser FROM [User]
+	WHERE [User].Login = @Login AND [User].Password = @Password)
+	RETURN ISNULL(@idUser, -1)
+GO
 
 CREATE PROCEDURE AddUser
 @Login NVARCHAR(50),
@@ -68,12 +80,18 @@ VALUES (@Login, @Password, @Mail, @Birthday)
 END
 GO
 
+
+IF OBJECT_ID('AddTask') IS NOT NULL
+	DROP PROCEDURE AddTask
+GO
 CREATE PROCEDURE AddTask
-@NameTask NVARCHAR(50),
-@IsComplete BIT,
-@DateTask DATE
-AS
-BEGIN
-INSERT Task
-VALUES (@NameTask, @IsComplete, @DateTask)
-END
+	@idUser INT,
+	@NameTask NVARCHAR(127)
+	AS
+	
+	DECLARE @idTask TABLE(id INT)
+
+	INSERT INTO [Task] OUTPUT INSERTED.idTask INTO @idTask VALUES (@NameTask, 0, GETDATE())
+	INSERT INTO [UserTask] VALUES(@idUser, (SELECT TOP(1) * FROM @idTask))
+GO
+

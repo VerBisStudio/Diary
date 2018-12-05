@@ -67,3 +67,14 @@ INSERT [User]
 VALUES (@Login, @Password, @Mail, @Birthday)
 END
 GO
+
+CREATE PROCEDURE AddTask
+@NameTask NVARCHAR(50),
+@DateTask DATE
+
+AS
+BEGIN 
+INSERT Task
+VALUES (@NameTask, @DateTask)
+END
+GO

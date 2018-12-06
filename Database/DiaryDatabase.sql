@@ -129,5 +129,20 @@ WHERE IdTask = @IdTask
 DELETE Task
 WHERE IdTask=@IdTask
 END
+GO
 
-execute DelTask 1
+Create TRIGGER EditTask
+ON Task
+INSTEAD OF UPDATE 
+AS
+BEGIN
+INSERT INTO Task(NameTask, DateTask)
+SELECT inserted.NameTask FROM inserted
+WHERE IdTask=inserted.IdTask
+END
+
+--drop trigger EditTask
+
+--Update Task
+--SET NameTask=5, DateTask = '2019.1.1'
+--Where IdTask = 2

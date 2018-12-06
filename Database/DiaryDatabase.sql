@@ -72,9 +72,9 @@ GO
 INSERT INTO UserTask(IdUser, IdTask)
 VALUES (1,1) 
 INSERT INTO UserTask(IdUser, IdTask)
-VALUES (2,5) 
+VALUES (2,2) 
 INSERT INTO UserTask(IdUser, IdTask)
-VALUES (3,6) 
+VALUES (3,3) 
 GO
 
 
@@ -121,4 +121,13 @@ CREATE PROCEDURE AddTask
 GO
 
 CREATE PROCEDURE DelTask
+@IdTask INT
+AS
+BEGIN 
+DELETE UserTask
+WHERE IdTask = @IdTask
+DELETE Task
+WHERE IdTask=@IdTask
+END
 
+execute DelTask 1
